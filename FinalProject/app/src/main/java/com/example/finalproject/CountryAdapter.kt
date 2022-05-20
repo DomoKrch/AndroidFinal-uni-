@@ -18,27 +18,27 @@ class CountryAdapter : RecyclerView.Adapter<CountryAdapter.CountryViewHolder>() 
         override fun areContentsTheSame(oldItem: Country, newItem: Country): Boolean {
             return oldItem == newItem
         }
+    }
 
-        private val differ = AsyncListDiffer(this@CountryAdapter, diffCallback)
-        var countries: List<Country>
-            get() = differ.currentList
-            set(value) { differ.submitList(value) }
+    private val differ = AsyncListDiffer<Country>(this@CountryAdapter, diffCallback)
+    var countries: List<Country>
+        get() = differ.currentList
+        set(value) { differ.submitList(value) }
 
-        override fun getItemCount() = countries.size
+    override fun getItemCount() = countries.size
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
-            return CountryViewHolder(ItemCountryBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
+        return CountryViewHolder(ItemCountryBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
             ))
         }
 
-        override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
-            holder.binding.apply {
-                val country = countries[position]
-                tvTitle.text = country.Country
-            }
+    override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
+        holder.binding.apply {
+            val country = countries[position]
+            tvTitle.text = country.Country
         }
     }
 }
